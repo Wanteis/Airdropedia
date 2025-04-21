@@ -76,15 +76,24 @@ const Submit = () => {
         console.log('Media public URL:', media_url);
       }
 
-      // Check for duplicate airdrop by ticker (case-insensitive) or referral link (exact)
-      const { data: existingAirdrops, error: checkError } = await supabase
+      // Check for duplicate airdrop by ticker (case-insensitive)
+      let duplicate = false;
+      let checkError = null;
+      const { data: tickerMatch, error: tickerError } = await supabase
         .from('airdrops')
         .select('id')
-        .or(`lower(ticker).eq.${ticker.toLowerCase()},referral_link.eq.${referral}`);
-      if (checkError) {
-        throw checkError;
-      }
-      if (existingAirdrops && existingAirdrops.length > 0) {
+        .ilike('ticker', ticker);
+      if (tickerError) checkError = tickerError;
+      if (tickerMatch && tickerMatch.length > 0) duplicate = true;
+      // Check for duplicate by referral link (exact)
+      const { data: referralMatch, error: referralError } = await supabase
+        .from('airdrops')
+        .select('id')
+        .eq('referral_link', referral);
+      if (referralError) checkError = referralError;
+      if (referralMatch && referralMatch.length > 0) duplicate = true;
+      if (checkError) throw checkError;
+      if (duplicate) {
         setError('Airdrop already exists.');
         setLoading(false);
         return;
