@@ -26,7 +26,7 @@ const Navbar = () => {
           <Link to="/" className="hover:text-accent">Home</Link>
           <Link to="/submit" className="hover:text-accent">Submit</Link>
           <Link to="/donate" className="hover:text-accent">Donate</Link>
-          <Link to="/Public/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent">Blog</Link>
+          <Link to="/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent">Blog</Link>
         </div>
       </div>
       <div className="flex items-center ml-4">
