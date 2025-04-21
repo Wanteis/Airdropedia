@@ -34,7 +34,7 @@ const Navbar = () => {
         <span className="text-xl font-extrabold tracking-wide ml-2 whitespace-nowrap">AIRDROPEDIA</span>
       </div>
       {/* Desktop Menu */}
-      <div className="hidden md:flex flex-1 justify-center">
+      <div className="hidden lg:flex flex-1 justify-center">
         <div className="flex gap-8 items-center text-muted text-base">
           <Link to="/" className="hover:text-accent">Home</Link>
           <Link to="/submit" className="hover:text-accent">Submit</Link>
@@ -42,7 +42,7 @@ const Navbar = () => {
           <a href="/Public/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent">Blog</a>
         </div>
       </div>
-      <div className="hidden md:flex items-center ml-4">
+      <div className="hidden lg:flex items-center ml-4">
         {user ? (
           <button onClick={handleLogout} className="bg-card border border-accent2 text-accent2 px-5 py-2 rounded-xl font-semibold hover:bg-accent2 hover:text-white transition-colors">Log out</button>
         ) : (
@@ -56,7 +56,7 @@ const Navbar = () => {
       </div>
       {/* Hamburger Icon */}
       <button
-        className="md:hidden flex items-center p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent2"
+        className="lg:hidden flex items-center p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent2"
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label="Open menu"
       >
@@ -64,9 +64,9 @@ const Navbar = () => {
           <path stroke="#2F80ED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16"/>
         </svg>
       </button>
-      {/* Mobile Menu Drawer */}
+      {/* Mobile/Tablet Menu Drawer */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-black/50 md:hidden" onClick={() => setMenuOpen(false)}>
+        <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setMenuOpen(false)}>
           <div
             className="absolute top-0 right-0 w-64 h-full bg-background shadow-xl flex flex-col pt-8"
             onClick={e => e.stopPropagation()}
