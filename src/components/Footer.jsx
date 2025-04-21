@@ -8,7 +8,7 @@ const Footer = () => (
         <div>
           <h3 className="text-base font-bold text-white mb-3">About</h3>
           <ul className="space-y-2">
-            <li><a href="/Public/Airdropedia_About_Us.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">About Us</a></li>
+            <li><a href="/Airdropedia_About_Us.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">About Us</a></li>
 
             <li><a href="https://x.com/Wanxeii" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Contact</a></li>
           </ul>
@@ -17,7 +17,7 @@ const Footer = () => (
         <div>
           <h3 className="text-base font-bold text-white mb-3">Resources</h3>
           <ul className="space-y-2">
-            <li><a href="/Public/Airdropedia_FAQ_DarkTheme.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">FAQ</a></li>
+            <li><a href="/Airdropedia_FAQ_DarkTheme.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">FAQ</a></li>
           </ul>
         </div>
 
