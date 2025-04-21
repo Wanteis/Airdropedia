@@ -76,6 +76,19 @@ const Submit = () => {
         console.log('Media public URL:', media_url);
       }
 
+      // Check for duplicate airdrop by ticker (case-insensitive) or referral link (exact)
+      const { data: existingAirdrops, error: checkError } = await supabase
+        .from('airdrops')
+        .select('id')
+        .or(`lower(ticker).eq.${ticker.toLowerCase()},referral_link.eq.${referral}`);
+      if (checkError) {
+        throw checkError;
+      }
+      if (existingAirdrops && existingAirdrops.length > 0) {
+        setError('Airdrop already exists.');
+        setLoading(false);
+        return;
+      }
       // Insert into airdrops table
       const { error: insertError } = await supabase
         .from('airdrops')
