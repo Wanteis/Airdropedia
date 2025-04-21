@@ -7,6 +7,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.reload();
+  };
 
   // Menu items for reuse
   const menuItems = (
@@ -18,16 +22,11 @@ const Navbar = () => {
     </>
   );
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.reload();
-  };
-
   return (
     <nav className="flex items-center justify-between py-6 px-2 md:px-0 max-w-5xl mx-auto w-full relative">
       <div className="flex items-center gap-4 min-w-0">
         <div className="bg-accent2 rounded-xl p-2 flex-shrink-0">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="[http://www.w3.org/2000/svg">](http://www.w3.org/2000/svg">)
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="28" height="28" rx="8" fill="#2F80ED"/>
             <path d="M14 7L21 11V17L14 21L7 17V11L14 7Z" fill="#00E1FF"/>
           </svg>
@@ -86,18 +85,18 @@ const Navbar = () => {
               <div className="mt-4">
                 {user ? (
                   <button
-                    onClick={() => { setMenuOpen(false); handleLogout(); }}
-                    className="w-full bg-card border border-accent2 text-accent2 px-5 py-2 rounded-xl font-semibold hover:bg-accent2 hover:text-white transition-colors"
-                  >
-                    Log out
-                  </button>
+  onClick={() => { setMenuOpen(false); handleLogout(); }}
+  className="w-full bg-card border border-accent2 text-accent2 px-3 py-1.5 rounded-lg font-semibold text-base hover:bg-accent2 hover:text-white transition-colors"
+>
+  Log out
+</button>
                 ) : (
                   <button
-                    className="w-full bg-card border border-accent2 text-accent2 px-5 py-2 rounded-xl font-semibold hover:bg-accent2 hover:text-white transition-colors"
-                    onClick={() => { setMenuOpen(false); navigate('/auth'); }}
-                  >
-                    Get Started
-                  </button>
+  className="w-full bg-card border border-accent2 text-accent2 px-3 py-1.5 rounded-lg font-semibold text-base hover:bg-accent2 hover:text-white transition-colors"
+  onClick={() => { setMenuOpen(false); navigate('/auth'); }}
+>
+  Get Started
+</button>
                 )}
               </div>
             </div>
