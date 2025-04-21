@@ -3,7 +3,7 @@ import supabase from '../supabaseClient';
 
 const BLOCKCHAINS = [
   'Ethereum',
-  'Binance Smart Chain',
+  'BSC',
   'Solana',
   'Arbitrum',
   'Avalanche',
