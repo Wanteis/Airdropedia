@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar for badge row */
+.badge-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #2E88FC #151a2b; /* Thumb color, Track color for Firefox */
+}
+.badge-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  background: #151a2b;
+  border-radius: 8px;
+  margin-bottom: -20px; /* Moves scrollbar lower */
+}
+.badge-scrollbar::-webkit-scrollbar-thumb {
+  background: #2E88FC;
+  border-radius: 8px;
+}
+.badge-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2f80ed;
+}
+@media (max-width: 768px) {
+  .badge-scrollbar::-webkit-scrollbar {
+    height: 4px;
+  }
+}
+@media (max-width: 480px) {
+  .badge-scrollbar::-webkit-scrollbar {
+    height: 3px;
+  }
+}
+.badge-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  background: #151a2b;
+  border-radius: 8px;
+  margin-bottom: -20px; /* Moves scrollbar lower */
+}
+.badge-scrollbar::-webkit-scrollbar-thumb {
+  background: #2E88FC;
+  border-radius: 8px;
+}
+.badge-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2f80ed;
+}
+
+
+body {
+  @apply bg-background text-text font-sans;
+}
