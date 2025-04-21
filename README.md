@@ -1,2 +1,1 @@
-# Airdropedia
-irdrop listing and management web app
+# Airdropedia is an airdrop listing and management web app
