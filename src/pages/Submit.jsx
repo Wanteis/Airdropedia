@@ -150,8 +150,8 @@ const Submit = () => {
       )}
       {/* Error Modal */}
       {error && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40 transition-opacity duration-300 animate-fade-in">
-          <div className="bg-card p-6 rounded-2xl shadow-lg border border-accent2/30 max-w-sm w-full text-center transform transition-all duration-300 scale-95 opacity-0 animate-popup-in">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
+          <div className="bg-card p-6 rounded-2xl shadow-lg border border-accent2/30 max-w-sm w-full text-center">
             <h3 className="text-lg font-bold mb-2 text-red-600">{error}</h3>
             <button
               className="mt-4 bg-accent2 text-white font-semibold py-2 px-6 rounded-lg hover:bg-accent transition-colors"
@@ -162,24 +162,6 @@ const Submit = () => {
           </div>
         </div>
       )}
-
-      {/* Tailwind CSS keyframes for popup animation */}
-      <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.3s ease;
-        }
-        @keyframes popup-in {
-          from { opacity: 0; transform: scale(0.95); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        .animate-popup-in {
-          animation: popup-in 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-      `}</style>
       <form onSubmit={handleSubmit} className="w-full max-w-md md:max-w-lg sm:max-w-full bg-card rounded-2xl shadow-card p-8 sm:p-4 flex flex-col gap-6 border border-accent2/20 mx-auto items-stretch">
     <h2 className="text-4xl font-extrabold mb-4 mt-8 text-center">Submit an Airdrop</h2>
         {/* Project Name */}
