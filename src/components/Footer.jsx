@@ -43,7 +43,7 @@ const Footer = () => (
         </div>
       </div>
       <hr className="border-accent2/10 mb-4" />
-      <div className="text-center text-xs text-muted pb-2">&copy; {new Date().getFullYear()} Airdropedia.com. All rights reserved.</div>
+      <div className="text-center text-xs text-muted pb-2">&copy; {new Date().getFullYear()} Airdropedia.xyz. All rights reserved.</div>
     </div>
   </footer>
 );
