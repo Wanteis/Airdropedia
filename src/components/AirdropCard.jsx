@@ -46,9 +46,17 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
   return (
     <>
       <div className={`relative rounded-3xl bg-gradient-to-br from-accent2/10 to-background px-4 py-4 w-[260px] min-w-0 min-h-[320px] flex flex-col justify-between shadow-2xl border border-accent2/15 ${featured ? 'min-h-[180px]' : ''}`}>
-        {/* Kebab Menu */}
+        {/* Card Body (unchanged) */}
+        {/* ...existing content... */}
+        {/* Share icon bottom right */}
+        <div className="absolute bottom-3 right-4 z-20">
+          <ShareMenu airdropId={airdrop.id} />
+        </div>
+        {/* Kebab Menu top right */}
         {user && airdrop.user_id === user.id && (
-          <KebabMenu onEdit={handleEdit} onDelete={handleDelete} />
+          <div className="absolute top-0 right-0 z-20">
+            <KebabMenu onEdit={handleEdit} onDelete={handleDelete} />
+          </div>
         )}
         {/* Top: Image/Icon */}
         <div className="flex flex-col items-center">
@@ -230,7 +238,7 @@ function KebabMenu({ onEdit, onDelete }) {
         onClick={() => setOpen((v) => !v)}
         aria-label="Open menu"
       >
-        <svg width="22" height="22" fill="none" viewBox="0 0 24 24">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
           <circle cx="12" cy="5" r="1.5" fill="#888" />
           <circle cx="12" cy="12" r="1.5" fill="#888" />
           <circle cx="12" cy="19" r="1.5" fill="#888" />
@@ -247,6 +255,67 @@ function KebabMenu({ onEdit, onDelete }) {
 }
 
 
+
+// ShareMenu component
+function ShareMenu({ airdropId }) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const menuRef = useRef(null);
+  const url = `${window.location.origin}/airdrops/${airdropId}`;
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    if (open) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [open]);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1200);
+      setOpen(false);
+    } catch (err) {
+      setCopied(false);
+      setOpen(false);
+    }
+  };
+
+  return (
+    <div className="relative" ref={menuRef}>
+      <button
+        className="p-1 rounded-full hover:bg-blue-100/10 focus:outline-none"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Share"
+        type="button"
+      >
+        {/* Share SVG icon */}
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+          <path d="M18 8a3 3 0 1 0-2.83-4H9.83A3 3 0 1 0 6 8c.19 0 .37-.01.55-.04l5.6 5.6a3.01 3.01 0 1 0 1.7-1.7l-5.6-5.6c.03-.18.04-.36.04-.55z" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full mt-2 mr-[-40px] w-auto bg-background border border-blue-400 rounded-lg shadow-lg z-30 inline-block">
+          <button
+            className="block w-full min-w-[56px] text-left px-2 py-1 hover:bg-blue-100/20 rounded-lg text-blue-600 text-xs font-medium whitespace-nowrap"
+            onClick={handleCopy}
+          >
+            Copy link
+          </button>
+        </div>
+      )}
+      {copied && (
+        <div className="absolute left-0 mt-2 px-3 py-1 rounded-xl bg-blue-500 text-white text-xs font-semibold shadow z-40 animate-fade-in-out">
+          Link copied!
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default AirdropCard;
 
