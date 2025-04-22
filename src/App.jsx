@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Submit from './pages/Submit';
 import Donate from './pages/Donate';
 import Auth from './pages/Auth';
+import Airdrops from './pages/Airdrops';
 import PageTransition from './components/PageTransition';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
@@ -92,6 +93,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/submit" element={<Submit />} />
           <Route path="/donate" element={<Donate />} />
+          <Route path="/airdrops" element={<Airdrops />} />
           <Route path="/auth" element={<Auth />} />
         </Routes>
       </PageTransition>
