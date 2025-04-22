@@ -26,6 +26,7 @@ const icons = {
 
 
 const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
+  const cardRef = useRef(null);
   const { user } = useAuth();
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -45,7 +46,7 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
 
   return (
     <>
-      <div className={`relative rounded-3xl bg-gradient-to-br from-accent2/10 to-background px-4 py-4 w-[260px] min-w-0 min-h-[320px] flex flex-col justify-between shadow-2xl border border-accent2/15 ${featured ? 'min-h-[180px]' : ''}`}>
+      <div ref={cardRef} className={`relative rounded-3xl bg-gradient-to-br from-accent2/10 to-background px-4 py-4 w-[260px] min-w-0 min-h-[320px] flex flex-col justify-between shadow-2xl border border-accent2/15 ${featured ? 'min-h-[180px]' : ''}`}>
         {/* Card Body (unchanged) */}
         {/* ...existing content... */}
 
@@ -71,8 +72,8 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
         </div>
         {/* Middle: Info */}
         <div className="flex flex-col gap-3 flex-1">
-          <div className="flex items-center gap-2 text-center w-full justify-center">
-            <span className="font-extrabold text-2xl md:text-xl sm:text-lg text-white drop-shadow-lg">{airdrop.project_name || airdrop.name}</span>
+          <div className="flex items-center gap-2 w-full justify-center text-center">
+            <span className="font-extrabold text-2xl md:text-xl sm:text-lg text-white drop-shadow-lg w-full text-center block">{airdrop.project_name || airdrop.name}</span>
           </div>
           <div className="flex flex-nowrap gap-2 text-base w-full items-center overflow-x-auto max-w-full badge-scrollbar pb-6">
             {airdrop.ticker || airdrop.symbol ? (
@@ -249,9 +250,9 @@ function KebabMenu({ onEdit, onDelete }) {
         </svg>
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-28 bg-background border border-accent2/20 rounded-xl shadow-lg py-1">
-          <button className="w-full text-left px-4 py-2 hover:bg-accent2/10 rounded-t-xl text-accent2 font-semibold" onClick={() => { setOpen(false); if (onEdit) onEdit(); }}>Edit</button>
-          <button className="w-full text-left px-4 py-2 hover:bg-accent/10 rounded-b-xl text-red-500 font-semibold" onClick={() => { setOpen(false); if (onDelete) onDelete(); }}>Delete</button>
+        <div className="absolute right-0 mt-2 mr-[-56px] w-28 bg-background border border-accent2/20 rounded-xl shadow-lg">
+          <button className="w-full block text-left px-4 py-2 hover:bg-accent2/10 text-accent2 font-semibold rounded-t-xl" onClick={() => { setOpen(false); if (onEdit) onEdit(); }}>Edit</button>
+          <button className="w-full block text-left px-4 py-2 hover:bg-accent/10 text-red-500 font-semibold rounded-b-xl" onClick={() => { setOpen(false); if (onDelete) onDelete(); }}>Delete</button>
         </div>
       )}
     </div>
