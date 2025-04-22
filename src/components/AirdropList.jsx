@@ -49,12 +49,41 @@ const AirdropList = ({ airdrops, setAirdrops, refreshAirdrops }) => {
   if (!airdrops.length) {
     return <div className="bg-card rounded-xl p-8 text-center text-muted mt-4">No airdrops found.</div>;
   }
+  // Sort airdrops by id ascending (oldest first)
+  const sortedAirdrops = [...airdrops].sort((a, b) => a.id - b.id);
+  const isHome = window.location.pathname === '/';
+  let displayedAirdrops = sortedAirdrops;
+  let showViewMore = false;
+
+  if (isHome) {
+    displayedAirdrops = sortedAirdrops.slice(0, 12);
+    showViewMore = sortedAirdrops.length > 12;
+  } else if (window.location.pathname === '/airdrops') {
+    displayedAirdrops = sortedAirdrops.slice(12).reverse(); // Newest first for rest
+  }
+
+  if (!displayedAirdrops.length) {
+    return <div className="bg-card rounded-xl p-8 text-center text-muted mt-4">No airdrops found.</div>;
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-4">
-      {airdrops.map((airdrop) => (
-        <AirdropCard key={airdrop.id} airdrop={airdrop} onEdit={handleEdit} onDelete={handleDelete} />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-4">
+        {displayedAirdrops.map((airdrop) => (
+          <AirdropCard key={airdrop.id} airdrop={airdrop} onEdit={handleEdit} onDelete={handleDelete} />
+        ))}
+      </div>
+      {isHome && showViewMore && (
+        <div className="flex justify-center mt-8">
+          <button
+            className="bg-accent2 text-white font-semibold py-2 px-8 rounded-lg hover:bg-accent transition-colors shadow-md text-lg"
+            onClick={() => window.location.href = '/airdrops'}
+          >
+            View More
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 
