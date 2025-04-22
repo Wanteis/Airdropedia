@@ -76,7 +76,7 @@ const AirdropList = ({ airdrops, setAirdrops, refreshAirdrops }) => {
       {isHome && showViewMore && (
         <div className="flex justify-center mt-8">
           <button
-            className="bg-accent2 text-white font-semibold py-2 px-8 rounded-lg hover:bg-accent transition-colors shadow-md text-lg"
+            className="border border-blue-500 text-blue-500 bg-transparent font-semibold rounded-xl px-8 py-2 text-lg transition hover:bg-blue-900/10 focus:outline-none focus:ring-2 focus:ring-blue-400"
             onClick={() => window.location.href = '/airdrops'}
           >
             View More
