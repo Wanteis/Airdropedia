@@ -48,10 +48,7 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
       <div className={`relative rounded-3xl bg-gradient-to-br from-accent2/10 to-background px-4 py-4 w-[260px] min-w-0 min-h-[320px] flex flex-col justify-between shadow-2xl border border-accent2/15 ${featured ? 'min-h-[180px]' : ''}`}>
         {/* Card Body (unchanged) */}
         {/* ...existing content... */}
-        {/* Share icon bottom right */}
-        <div className="absolute bottom-3 right-4 z-20">
-          <ShareMenu airdropId={airdrop.id} />
-        </div>
+
         {/* Kebab Menu top right */}
         {user && airdrop.user_id === user.id && (
           <div className="absolute top-0 right-0 z-20">
@@ -123,19 +120,19 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
           <div className="bg-background border border-accent2/20 rounded-2xl px-7 py-8 w-80 shadow-2xl text-center">
             <h2 className="text-2xl font-bold mb-4 text-accent2">Edit Airdrop</h2>
             <input
-              className="w-full mb-3 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent2 transition-all"
+              className="w-full mb-4 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent2 transition-all"
               value={editData.project_name || ''}
               onChange={e => setEditData({ ...editData, project_name: e.target.value })}
               placeholder="Project Name"
             />
             <input
-              className="w-full mb-3 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent2 transition-all"
+              className="w-full mb-4 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent2 transition-all"
               value={editData.ticker || ''}
               onChange={e => setEditData({ ...editData, ticker: e.target.value })}
               placeholder="Ticker"
             />
             <select
-              className="w-full mb-3 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text focus:outline-none focus:ring-2 focus:ring-accent2 transition-all appearance-none pr-10"
+              className="w-full mb-4 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text focus:outline-none focus:ring-2 focus:ring-accent2 transition-all appearance-none pr-10"
               style={{
                 backgroundImage: `url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23b3b8c5" stroke-width="3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>')`,
                 backgroundRepeat: 'no-repeat',
@@ -157,9 +154,9 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
               <option value="Other">Other</option>
             </select>
             <select
-              className="w-full mb-5 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text focus:outline-none focus:ring-2 focus:ring-accent2 transition-all appearance-none pr-10"
+              className="w-full mb-4 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text focus:outline-none focus:ring-2 focus:ring-accent2 transition-all appearance-none pr-10"
               style={{
-                backgroundImage: `url('data:image/svg+xml;utf8,<svg fill=\"none\" stroke=\"%23b3b8c5\" stroke-width=\"3\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M19 9l-7 7-7-7\"/></svg>')`,
+                backgroundImage: `url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23b3b8c5" stroke-width="3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>')`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right 1rem center',
                 backgroundSize: '1.25rem 1.25rem'
@@ -171,6 +168,13 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
               <option value="Free">Free</option>
               <option value="Paid">Paid</option>
             </select>
+            <input
+              className="w-full mb-4 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent2 transition-all"
+              value={editData.referral_link || ''}
+              onChange={e => setEditData({ ...editData, referral_link: e.target.value })}
+              placeholder="Referral Link"
+              type="url"
+            />
             <div className="flex gap-3 mt-2">
               <button
                 className="flex-1 bg-accent2 text-white rounded-xl px-4 py-2 font-bold hover:bg-accent transition-colors"
@@ -256,66 +260,7 @@ function KebabMenu({ onEdit, onDelete }) {
 
 
 
-// ShareMenu component
-function ShareMenu({ airdropId }) {
-  const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const menuRef = useRef(null);
-  const url = `${window.location.origin}/airdrops/${airdropId}`;
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setOpen(false);
-      }
-    }
-    if (open) document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open]);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1200);
-      setOpen(false);
-    } catch (err) {
-      setCopied(false);
-      setOpen(false);
-    }
-  };
-
-  return (
-    <div className="relative" ref={menuRef}>
-      <button
-        className="p-1 rounded-full hover:bg-blue-100/10 focus:outline-none"
-        onClick={() => setOpen((v) => !v)}
-        aria-label="Share"
-        type="button"
-      >
-        {/* Share SVG icon */}
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-          <path d="M18 8a3 3 0 1 0-2.83-4H9.83A3 3 0 1 0 6 8c.19 0 .37-.01.55-.04l5.6 5.6a3.01 3.01 0 1 0 1.7-1.7l-5.6-5.6c.03-.18.04-.36.04-.55z" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
-      {open && (
-        <div className="absolute right-0 top-full mt-2 mr-[-40px] w-auto bg-background border border-blue-400 rounded-lg shadow-lg z-30 inline-block">
-          <button
-            className="block w-full min-w-[56px] text-left px-2 py-1 hover:bg-blue-100/20 rounded-lg text-blue-600 text-xs font-medium whitespace-nowrap"
-            onClick={handleCopy}
-          >
-            Copy link
-          </button>
-        </div>
-      )}
-      {copied && (
-        <div className="absolute left-0 mt-2 px-3 py-1 rounded-xl bg-blue-500 text-white text-xs font-semibold shadow z-40 animate-fade-in-out">
-          Link copied!
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default AirdropCard;
 
