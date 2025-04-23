@@ -6,24 +6,24 @@ export default function LikeButton({ airdropId, initialLikes = 0, onLike }) {
   const [loading, setLoading] = useState(false);
   const [liked, setLiked] = useState(false);
 
-  const handleLike = async () => {
-    if (liked || loading) return;
+  const handleToggleLike = async () => {
+    if (loading) return;
     setLoading(true);
-    setLiked(true);
-    setLikes(likes + 1);
-    // Optimistic UI update
-    if (onLike) onLike(likes + 1);
-    // Update on Supabase
-    await supabase.from('airdrops').update({ likes: likes + 1 }).eq('id', airdropId);
+    const newLiked = !liked;
+    const newLikes = likes + (newLiked ? 1 : -1);
+    setLiked(newLiked);
+    setLikes(newLikes);
+    if (onLike) onLike(newLikes);
+    await supabase.from('airdrops').update({ likes: newLikes }).eq('id', airdropId);
     setLoading(false);
   };
 
   return (
     <button
       className={`flex items-center gap-1 px-2 py-1 rounded-full transition-colors focus:outline-none ${liked ? 'text-pink-500' : 'text-muted'} hover:bg-accent2/10`}
-      onClick={handleLike}
-      disabled={liked || loading}
-      aria-label="Like"
+      onClick={handleToggleLike}
+      disabled={loading}
+      aria-label={liked ? 'Unlike' : 'Like'}
       type="button"
     >
       <svg
