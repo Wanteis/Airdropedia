@@ -42,11 +42,11 @@ export default function Dashboard() {
 
   return (
     <main className="max-w-4xl mx-auto px-4 pt-10 pb-20">
-      <h1 className="text-3xl font-bold mb-8 text-center">My Bookmarked Airdrops</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Bookmarks</h1>
       {loading ? (
         <div className="py-32 text-center">Loading...</div>
       ) : airdrops.length === 0 ? (
-        <div className="py-32 text-center text-lg text-muted">No bookmarks yet. Bookmark airdrops to see them here!</div>
+        <div className="py-32 text-center text-lg text-muted">No bookmarks yet.</div>
       ) : (
         <div className="flex flex-wrap justify-center gap-8">
           {airdrops.map(airdrop => (
