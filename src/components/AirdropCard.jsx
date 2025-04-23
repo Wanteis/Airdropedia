@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import LikeButton from './LikeButton';
 
 const icons = {
   token: (
@@ -103,7 +104,7 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
         <div className="border-t border-accent2/10 my-3 w-full"></div>
         {/* Bottom: Referral */}
         {airdrop.referral_link && (
-          <div className="flex items-center justify-center w-full">
+          <div className="flex items-center justify-between w-full gap-2">
             <a
               href={airdrop.referral_link}
               target="_blank"
@@ -112,6 +113,7 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
             >
               Join
             </a>
+            <LikeButton airdropId={airdrop.id} initialLikes={airdrop.likes || 0} className="ml-auto" />
           </div>
         )}
       </div>
