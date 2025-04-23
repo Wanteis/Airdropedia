@@ -1,0 +1,54 @@
+import React, { useEffect, useState } from 'react';
+import supabase from '../supabaseClient';
+import { useAuth } from '../context/AuthContext';
+
+export default function BookmarkButton({ airdropId, onChange }) {
+  const { user } = useAuth();
+  const [bookmarked, setBookmarked] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    const fetchBookmark = async () => {
+      const { data } = await supabase
+        .from('bookmarks')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('airdrop_id', airdropId)
+        .single();
+      setBookmarked(!!data);
+    };
+    fetchBookmark();
+  }, [user, airdropId]);
+
+  const handleToggleBookmark = async () => {
+    if (!user || loading) return;
+    setLoading(true);
+    if (!bookmarked) {
+      // Add bookmark
+      const { error } = await supabase.from('bookmarks').insert({ user_id: user.id, airdrop_id: airdropId });
+      if (!error) setBookmarked(true);
+    } else {
+      // Remove bookmark
+      await supabase.from('bookmarks').delete().eq('user_id', user.id).eq('airdrop_id', airdropId);
+      setBookmarked(false);
+    }
+    setLoading(false);
+    if (onChange) onChange(!bookmarked);
+  };
+
+  return (
+    <button
+      className={`flex items-center px-2 py-1 rounded-full transition-colors focus:outline-none ${bookmarked ? 'text-yellow-400' : 'text-muted'} hover:bg-accent2/10`}
+      onClick={handleToggleBookmark}
+      disabled={loading || !user}
+      aria-label={bookmarked ? 'Remove Bookmark' : 'Bookmark'}
+      type="button"
+      title={bookmarked ? 'Remove Bookmark' : 'Bookmark'}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill={bookmarked ? '#facc15' : 'none'} viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75v10.19a.75.75 0 01-1.14.64l-3.11-1.85a.75.75 0 00-.76 0l-3.11 1.85a.75.75 0 01-1.14-.64V6.75A2.25 2.25 0 016.75 4.5h10.5A2.25 2.25 0 0119.5 6.75z" />
+      </svg>
+    </button>
+  );
+}
