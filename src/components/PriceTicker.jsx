@@ -79,7 +79,7 @@ const PriceTicker = () => {
         className="flex items-center gap-8 animate-marquee whitespace-nowrap px-2"
         style={{ minWidth: '100%' }}
       >
-        {COINS.map(coin => {
+        {[...COINS, ...COINS].map((coin, idx) => {
           const price = prices[coin.symbol];
           const prev = prevPrices[coin.symbol];
           let color = 'text-white';
@@ -87,7 +87,7 @@ const PriceTicker = () => {
             color = price > prev ? 'text-green-400' : price < prev ? 'text-red-400' : 'text-white';
           }
           return (
-            <span key={coin.symbol} className="flex items-center gap-2 text-lg font-semibold">
+            <span key={coin.symbol + idx} className="flex items-center gap-2 text-lg font-semibold">
               <img src={coin.logo} alt={coin.name} className="w-6 h-6 rounded-full bg-black" onError={e => { e.target.onerror = null; e.target.style.display='none'; }} />
               <span className={color}>{price ? price.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '--'}</span>
             </span>
