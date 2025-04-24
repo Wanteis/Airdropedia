@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import AirdropFilters from './AirdropFilters';
 import PriceTicker from './PriceTicker';
 
@@ -31,8 +32,22 @@ const Hero = ({
 
   return (
     <section className="text-center mt-8 sm:mt-6 md:mt-8 lg:mt-10">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-10 leading-tight">Discover Crypto Airdrops</h1>
-      <p className="text-lg sm:text-xl md:text-lg lg:text-xl text-muted mb-8 sm:mb-6 md:mb-8 lg:mb-10">Your guide to the latest and upcoming crypto airdrops</p>
+      <motion.h1
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-10 leading-tight"
+      >
+        Discover Crypto Airdrops
+      </motion.h1>
+      <motion.p
+        initial={{ opacity: 0, y: 32 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: 'easeOut', delay: 0.15 }}
+        className="text-lg sm:text-xl md:text-lg lg:text-xl text-muted mb-8 sm:mb-6 md:mb-8 lg:mb-10"
+      >
+        Your guide to the latest and upcoming crypto airdrops
+      </motion.p>
       <div className="w-full flex flex-col sm:flex-col md:flex-row lg:flex-row gap-4 sm:gap-2 md:gap-4 lg:gap-4 items-center justify-center py-4 sm:py-3 md:py-4 lg:py-5 mb-4 sm:mb-2 md:mb-3 lg:mb-4">
         <div className="relative w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
           <input
