@@ -5,7 +5,7 @@ import supabase from '../supabaseClient';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -18,7 +18,7 @@ const Navbar = () => {
       <Link to="/" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Home</Link>
       <Link to="/submit" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Submit</Link>
       <Link to="/donate" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Donate</Link>
-      {user && <Link to="/dashboard" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Bookmarks</Link>}
+      {!loading && user && <Link to="/dashboard" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Bookmarks</Link>}
       <a href="/Public/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Blog</a>
     </>
   );
@@ -40,7 +40,7 @@ const Navbar = () => {
           <Link to="/" className="hover:text-accent">Home</Link>
           <Link to="/submit" className="hover:text-accent">Submit</Link>
           <Link to="/donate" className="hover:text-accent">Donate</Link>
-          {user && (
+          {!loading && user && (
             <Link to="/dashboard" className="hover:text-accent">Bookmarks</Link>
           )}
           <a href="/Public/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent">Blog</a>
