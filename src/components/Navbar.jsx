@@ -9,9 +9,8 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
-    if (!error) {
-      navigate('/auth'); // Navigate to login page after logout
-    } else {
+    navigate('/auth'); // Always navigate to login page after logout attempt
+    if (error && error.message !== "Auth session missing!") {
       alert('Logout failed: ' + error.message);
     }
   };
