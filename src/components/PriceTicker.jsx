@@ -71,20 +71,14 @@ function useLivePrices() {
 }
 
 const TickerItem = React.memo(({ logo, symbol, price, prev }) => {
-  const [displayPrice, setDisplayPrice] = React.useState(price);
-  React.useEffect(() => {
-    if (price !== undefined && price !== displayPrice) {
-      setDisplayPrice(price);
-    }
-  }, [price, displayPrice]);
   let color = 'text-white';
-  if (prev !== undefined && displayPrice !== undefined) {
-    color = displayPrice > prev ? 'text-green-400' : displayPrice < prev ? 'text-red-400' : 'text-white';
+  if (prev !== undefined && price !== undefined) {
+    color = price > prev ? 'text-green-400' : price < prev ? 'text-red-400' : 'text-white';
   }
   return (
     <span className="flex items-center gap-2 text-lg font-semibold">
       <img src={logo} alt={symbol} className="w-6 h-6 rounded-full bg-black" onError={e => { e.target.onerror = null; e.target.style.display='none'; }} />
-      <span className={color}>{displayPrice ? displayPrice.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '--'}</span>
+      <span className={color}>{price ? price.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '--'}</span>
     </span>
   );
 });
