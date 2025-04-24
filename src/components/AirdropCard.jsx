@@ -116,7 +116,7 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
             </a>
             <div className="flex items-center ml-auto">
               <LikeButton airdropId={airdrop.id} initialLikes={airdrop.likes || 0} />
-              {user && <BookmarkButton airdropId={airdrop.id} />}
+              <BookmarkButton airdropId={airdrop.id} />
             </div>
           </div>
         )}
