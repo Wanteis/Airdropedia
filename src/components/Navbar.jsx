@@ -8,8 +8,12 @@ const Navbar = () => {
   const { user, loading } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.reload();
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      navigate('/auth'); // Navigate to login page after logout
+    } else {
+      alert('Logout failed: ' + error.message);
+    }
   };
 
   // Menu items for reuse
