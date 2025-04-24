@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AirdropFilters from './AirdropFilters';
+import PriceTicker from './PriceTicker';
 
 const Hero = ({
   search,
@@ -53,6 +54,12 @@ const Hero = ({
           sort={sortValue}
           setSort={setSortValue}
         />
+      </div>
+      {/* Price Ticker Marquee */}
+      <div className="w-full flex justify-center mb-2">
+        <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+          <PriceTicker />
+        </div>
       </div>
     </section>
   );
