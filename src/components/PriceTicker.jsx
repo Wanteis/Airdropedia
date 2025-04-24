@@ -70,6 +70,25 @@ function useLivePrices() {
   return { prices, prevPrices: prevPrices.current };
 }
 
+const TickerItem = React.memo(({ logo, symbol, price, prev }) => {
+  const [displayPrice, setDisplayPrice] = React.useState(price);
+  React.useEffect(() => {
+    if (price !== undefined && price !== displayPrice) {
+      setDisplayPrice(price);
+    }
+  }, [price, displayPrice]);
+  let color = 'text-white';
+  if (prev !== undefined && displayPrice !== undefined) {
+    color = displayPrice > prev ? 'text-green-400' : displayPrice < prev ? 'text-red-400' : 'text-white';
+  }
+  return (
+    <span className="flex items-center gap-2 text-lg font-semibold">
+      <img src={logo} alt={symbol} className="w-6 h-6 rounded-full bg-black" onError={e => { e.target.onerror = null; e.target.style.display='none'; }} />
+      <span className={color}>{displayPrice ? displayPrice.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '--'}</span>
+    </span>
+  );
+});
+
 const PriceTicker = () => {
   const { prices, prevPrices } = useLivePrices();
 
@@ -79,28 +98,23 @@ const PriceTicker = () => {
         className="flex items-center gap-8 animate-marquee whitespace-nowrap px-2"
         style={{ minWidth: '100%' }}
       >
-        {[...COINS, ...COINS].map((coin, idx) => {
-          const price = prices[coin.symbol];
-          const prev = prevPrices[coin.symbol];
-          let color = 'text-white';
-          if (prev !== undefined && price !== undefined) {
-            color = price > prev ? 'text-green-400' : price < prev ? 'text-red-400' : 'text-white';
-          }
-          return (
-            <span key={coin.symbol + idx} className="flex items-center gap-2 text-lg font-semibold">
-              <img src={coin.logo} alt={coin.name} className="w-6 h-6 rounded-full bg-black" onError={e => { e.target.onerror = null; e.target.style.display='none'; }} />
-              <span className={color}>{price ? price.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '--'}</span>
-            </span>
-          );
-        })}
+        {Array.from({length: 10}).flatMap(() => COINS).map((coin, idx) => (
+          <TickerItem
+            key={coin.symbol + idx}
+            logo={coin.logo}
+            symbol={coin.symbol}
+            price={prices[coin.symbol]}
+            prev={prevPrices[coin.symbol]}
+          />
+        ))}
       </div>
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
+          100% { transform: translateX(-900%); }
         }
         .animate-marquee {
-          animation: marquee 18s linear infinite;
+          animation: marquee 120s linear infinite;
         }
       `}</style>
     </div>
