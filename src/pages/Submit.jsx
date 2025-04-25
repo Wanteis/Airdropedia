@@ -53,6 +53,8 @@ const Submit = () => {
       const ticker = form.ticker.value;
       const cost = form.cost.value;
       const referral = form.referral.value;
+      const website = form.website.value;
+      const xurl = form.xurl.value;
       let media_url = '';
 
       if (media) {
@@ -108,6 +110,8 @@ const Submit = () => {
             ticker,
             cost,
             referral_link: referral,
+            website_url: website,
+            x_url: xurl,
             media_url,
             user_id: user.id,
           },
@@ -241,6 +245,28 @@ const Submit = () => {
             required
             className="w-full rounded-lg bg-background border border-accent2/30 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent2"
             placeholder="https://airdrop-project.com/referral"
+          />
+        </div>
+        {/* Website URL */}
+        <div>
+          <label className="block text-sm font-semibold mb-1" htmlFor="website">Website URL</label>
+          <input
+            id="website"
+            name="website"
+            type="url"
+            className="w-full rounded-lg bg-background border border-accent2/30 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent2"
+            placeholder="https://project-website.com"
+          />
+        </div>
+        {/* X URL */}
+        <div>
+          <label className="block text-sm font-semibold mb-1" htmlFor="xurl">X (Twitter) URL</label>
+          <input
+            id="xurl"
+            name="xurl"
+            type="url"
+            className="w-full rounded-lg bg-background border border-accent2/30 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent2"
+            placeholder="https://x.com/project"
           />
         </div>
         {/* Upload Media */}
