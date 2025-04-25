@@ -22,7 +22,7 @@ const Navbar = () => {
       <Link to="/submit" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Submit</Link>
       <Link to="/donate" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Donate</Link>
 
-      <a href="/Public/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Blog</a>
+      <a href="/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent block px-4 py-2" onClick={() => setMenuOpen(false)}>Blog</a>
     </>
   );
 
@@ -44,7 +44,7 @@ const Navbar = () => {
           <Link to="/submit" className="hover:text-accent">Submit</Link>
           <Link to="/donate" className="hover:text-accent">Donate</Link>
 
-          <a href="/Public/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent">Blog</a>
+          <a href="/Airdropedia_Overview_2025.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-accent">Blog</a>
         </div>
       </div>
       <div className="hidden lg:flex items-center ml-4">
