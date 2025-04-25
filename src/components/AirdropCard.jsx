@@ -114,8 +114,39 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
             >
               Join
             </a>
-            <div className="flex items-center ml-auto">
-
+            <div className="flex items-center ml-auto gap-2">
+              {/* Website Icon */}
+              {airdrop.website_url && (
+                <a
+                  href={airdrop.website_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center bg-accent2/10 hover:bg-accent2/20 rounded-full p-2 transition"
+                  title="Website"
+                >
+                  {/* Globe SVG */}
+                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke="#2979f3" strokeWidth="2"/>
+                    <ellipse cx="12" cy="12" rx="4" ry="10" stroke="#2979f3" strokeWidth="2"/>
+                    <path d="M2 12h20" stroke="#2979f3" strokeWidth="2"/>
+                  </svg>
+                </a>
+              )}
+              {/* X Icon */}
+              {airdrop.x_url && (
+                <a
+                  href={airdrop.x_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center bg-accent2/10 hover:bg-accent2/20 rounded-full p-2 transition"
+                  title="X (Twitter)"
+                >
+                  {/* X SVG */}
+                  <svg width="16" height="16" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M97.8 2H117.5L77.7 51.1L124 118H86.1L56.1 76.8L22.7 118H3L45.4 65.5L0 2H39.1L65.5 39.8L97.8 2ZM90.7 106.2H101.1L33.7 12.7H22.4L90.7 106.2Z" fill="#2979f3"/>
+</svg>
+                </a>
+              )}
             </div>
           </div>
         )}
@@ -179,6 +210,20 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
               value={editData.referral_link || ''}
               onChange={e => setEditData({ ...editData, referral_link: e.target.value })}
               placeholder="Referral Link"
+              type="url"
+            />
+            <input
+              className="w-full mb-4 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent2 transition-all"
+              value={editData.website_url || ''}
+              onChange={e => setEditData({ ...editData, website_url: e.target.value })}
+              placeholder="Website URL"
+              type="url"
+            />
+            <input
+              className="w-full mb-4 p-3 border border-accent2/15 rounded-xl bg-card text-base text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent2 transition-all"
+              value={editData.x_url || ''}
+              onChange={e => setEditData({ ...editData, x_url: e.target.value })}
+              placeholder="X (Twitter) URL"
               type="url"
             />
             <div className="flex gap-3 mt-2">
