@@ -175,6 +175,7 @@ const HomePage = () => {
 
 
 import Loader from './components/Loader';
+import { Analytics } from '@vercel/analytics/react';
 
 const AppWrapper = () => {
   const [showLoader, setShowLoader] = useState(true);
@@ -187,7 +188,10 @@ const AppWrapper = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
-        {showLoader ? <Loader /> : <App />}
+        {showLoader ? <Loader /> : <>
+          <App />
+          <Analytics />
+        </>}
       </BrowserRouter>
     </AuthProvider>
   );
