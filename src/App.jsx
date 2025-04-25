@@ -174,13 +174,24 @@ const HomePage = () => {
 };
 
 
-const AppWrapper = () => (
-  <AuthProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </AuthProvider>
-);
+import Loader from './components/Loader';
+
+const AppWrapper = () => {
+  const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowLoader(false), 4000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        {showLoader ? <Loader /> : <App />}
+      </BrowserRouter>
+    </AuthProvider>
+  );
+};
 
 export default AppWrapper;
 
