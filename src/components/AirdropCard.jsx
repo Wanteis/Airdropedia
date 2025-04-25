@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import LikeButton from './LikeButton';
-import BookmarkButton from './BookmarkButton';
+
+
 
 const icons = {
   token: (
@@ -115,8 +115,7 @@ const AirdropCard = ({ airdrop, featured, onEdit, onDelete }) => {
               Join
             </a>
             <div className="flex items-center ml-auto">
-              <LikeButton airdropId={airdrop.id} initialLikes={airdrop.likes || 0} />
-              <BookmarkButton airdropId={airdrop.id} />
+
             </div>
           </div>
         )}
